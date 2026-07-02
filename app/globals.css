@@ -1,0 +1,127 @@
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Space+Grotesk:wght@400;500;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: #ebedef;
+  color: #2f2622;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ---------- B4 Marble Luxe background — cool stone, faint warm veining ---------- */
+.marble-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(112deg, transparent 42%, #d8dce066 44%, transparent 47%),
+    linear-gradient(96deg, transparent 68%, #cfd4d955 70%, transparent 74%),
+    linear-gradient(118deg, transparent 20%, #e5e0d855 23%, transparent 27%),
+    linear-gradient(129deg, transparent 55%, #d5cfc44d 57.5%, transparent 61%),
+    linear-gradient(160deg, #f5f4f1, #e9ebee 70%, #e3e6ea);
+}
+
+/* ---------- Card: entrance + hover sheen (light theme) ---------- */
+.fx-card {
+  position: relative;
+  overflow: hidden;
+  animation: cardIn 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s, border-color 0.3s;
+}
+.fx-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 38%, rgba(255, 255, 255, 0.5) 50%, transparent 62%);
+  transform: translateX(-130%);
+}
+.fx-card:hover::before {
+  animation: sheen 0.7s ease;
+}
+.fx-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  border-color: #a1804e;
+  box-shadow: 0 26px 56px rgba(50, 40, 30, 0.22);
+}
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes sheen {
+  to { transform: translateX(130%); }
+}
+
+.gold-text {
+  background: linear-gradient(120deg, #a1804e, #b08d57 55%, #a1804e);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.spin-slow { animation: spin 6s linear infinite; }
+
+/* scent-family tokens — light tints */
+.t-floral { background: #b85f8a14; color: #b85f8a; }
+.t-woody { background: #8a6a3b14; color: #8a6a3b; }
+.t-citrus { background: #a8841a14; color: #a8841a; }
+.t-fresh { background: #3f8c7614; color: #3f8c76; }
+.t-oriental { background: #9b5a8614; color: #9b5a86; }
+.t-gourmand { background: #a86a4514; color: #a86a45; }
+
+/* floating bottle */
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+.floaty { animation: floaty 3.2s ease-in-out infinite; }
+
+/* glow pulse behind bottles */
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.72; }
+}
+.glow-pulse { animation: glowPulse 3s ease-in-out infinite; }
+
+/* DNA bars grow in */
+@keyframes growBar { from { width: 0; } }
+.grow-bar { animation: growBar 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+
+/* heart burst particles (appended to body) */
+.hb {
+  position: fixed;
+  z-index: 200;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: hbf 0.6s ease-out forwards;
+}
+@keyframes hbf {
+  from { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  to { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0.35); opacity: 0; }
+}
+
+/* quiz reveal */
+@keyframes revealIn {
+  from { opacity: 0; transform: translateY(26px) scale(0.92); }
+  to { opacity: 1; transform: none; }
+}
+.reveal-in { animation: revealIn 0.55s cubic-bezier(0.2, 0.9, 0.25, 1.2) both; }
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(0.8) rotate(0deg); }
+  50% { opacity: 0.9; transform: scale(1.25) rotate(25deg); }
+}
+.spark {
+  position: absolute;
+  color: #b08d57;
+  animation: twinkle 1.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
